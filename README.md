@@ -16,16 +16,13 @@ Note, as this library heavily depends on the [requests](https://pypi.org/project
 
 ```python
 import json
-from zoomus import ZoomClient
+from zoomapi import OAuthZoomClient
 
-client = ZoomClient('API_KEY', 'API_SECRET')
+client = OAuthZoomClient('CLIENT_ID', 'CLIENT_SECRET', 'REDIRECT_URL')
 
-user_list_response = client.user.list()
-user_list = json.loads(user_list_response.content)
-
-for user in user_list['users']:
-    user_id = user['id']
-    print(json.loads(client.meeting.list(user_id=user_id).content))
+user_response = client.user.get(id='me')
+user = json.loads(user_response.content)
+print(user)
 ```
 
 What one will note is that the returned object from a call using the client is a [requests](https://pypi.org/project/requests/) `Response` object. This is done so that if there is any error working with the API that one has complete control of handling all errors. As such, to actually get the list of users in the example above, one will have to load the JSON from the content of the `Response` object that is returned.
@@ -33,7 +30,7 @@ What one will note is that the returned object from a call using the client is a
 ### Using with a manage context
 
 ```python
-with ZoomClient('API_KEY', 'API_SECRET') as client:
+with JWTZoomClient('API_KEY', 'API_SECRET') as client:
     user_list_response = client.users.list()
     ...
 ```
