@@ -1,0 +1,5 @@
+PyJWT==1.7.1
+requests==2.22.0
+requests_oauthlib==1.1.0
+configparser==5.0.0
+pyngrok==2.1.3
