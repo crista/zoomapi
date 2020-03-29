@@ -1,10 +1,14 @@
-import json
+import sys, os
+filename = os.path.join(os.path.dirname(__file__), '..')
+sys.path.insert(1, filename)
 from zoomapi import OAuthZoomClient
+
+import json
 from configparser import ConfigParser
 from pyngrok import ngrok
 
 parser = ConfigParser()
-parser.read("bot.ini")
+parser.read("bots/bot.ini")
 client_id = parser.get("OAuth", "client_id")
 client_secret = parser.get("OAuth", "client_secret")
 print(f'id: {client_id} secret: {client_secret}')
