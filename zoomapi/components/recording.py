@@ -1,7 +1,8 @@
+# THIS FILE WAS CHANGED FROM THE ORIGINAL
+
 """Zoom.us REST API Python Client -- Recording component"""
 from zoomapi import util
 from zoomapi.components import base
-
 
 class RecordingComponent(base.BaseComponent):
     """Component dealing with all recording related matters"""

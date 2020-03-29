@@ -3,7 +3,6 @@
 from zoomapi import util
 from zoomapi.components import base
 
-
 class ChatChannelsComponentV2(base.BaseComponent):
     """Component dealing with all chat channels related matters"""
 

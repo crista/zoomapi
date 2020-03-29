@@ -1,8 +1,9 @@
+# THIS FILE WAS CHANGED FROM THE ORIGINAL
+
 """Zoom.us REST API Python Client"""
 
 from zoomapi import util
 from zoomapi.components import base
-
 
 class MeetingComponent(base.BaseComponent):
     """Component dealing with all meeting related matters"""

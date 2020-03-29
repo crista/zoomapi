@@ -1,3 +1,4 @@
+# THIS FILE WAS CHANGED FROM THE ORIGINAL
 """Zoom.us REST API Python Client -- Webinar component"""
 
 from zoomapi import util

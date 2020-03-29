@@ -1,4 +1,9 @@
+Copyright [2020][Crista Lopes]
+
+Parts of this code are taken from https://github.com/actmd/zoomus. The following is their copyright:
 Copyright [2015] [Accountable Care Transactions, Inc]
+
+
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

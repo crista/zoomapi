@@ -1,6 +1,6 @@
-"""Utility classes and functions"""
+# THIS FILE WAS CHANGED FROM THE ORIGINAL
 
-from __future__ import absolute_import, unicode_literals
+"""Utility classes and functions"""
 
 import contextlib
 import json

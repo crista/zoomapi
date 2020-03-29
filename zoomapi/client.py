@@ -1,3 +1,5 @@
+# THIS FILE WAS CHANGED FROM THE ORIGINAL
+
 """Zoom.us REST API Python Client"""
 
 from zoomapi import components, util
@@ -11,7 +13,6 @@ COMPONENT_CLASSES = {
     "webinar": components.webinar.WebinarComponentV2,
     "recording": components.recording.RecordingComponentV2,
 }
-
 
 class ZoomClient(util.ApiClient):
     """Zoom.us REST API Python Client"""
@@ -38,7 +39,6 @@ class ZoomClient(util.ApiClient):
             "api_key": api_key,
             "api_secret": api_secret,
             "data_type": data_type,
-#            "token": util.generate_jwt(api_key, api_secret),
         }
 
     def __enter__(self):
