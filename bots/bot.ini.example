@@ -1,6 +1,10 @@
+; Copy this file to bot.ini and write your own credentials there
+
 [OAuth]
 client_id = YOUR_CLIENT_ID
 client_secret = YOUR_CLIENT_SECRET
+; Path to your browser executable, e.g.
+browser_path = '/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe'
 
 [JWT]
 api_key = YOUR_API_KEY

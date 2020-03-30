@@ -11,12 +11,13 @@ parser = ConfigParser()
 parser.read("bots/bot.ini")
 client_id = parser.get("OAuth", "client_id")
 client_secret = parser.get("OAuth", "client_secret")
-print(f'id: {client_id} secret: {client_secret}')
+browser_path = parser.get("OAuth", "browser_path")
+print(f'id: {client_id} secret: {client_secret} browser: {browser_path}')
 
 redirect_url = ngrok.connect(4000, "http")
 print("Redirect URL is", redirect_url)
 
-client = OAuthZoomClient(client_id, client_secret, redirect_url)
+client = OAuthZoomClient(client_id, client_secret, redirect_url, browser_path)
 
 user_response = client.user.get(id='me')
 user = json.loads(user_response.content)

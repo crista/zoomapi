@@ -276,17 +276,17 @@ def http_receiver():
             httpd.handle_request()
         print("End of http receiver")
 
-def get_oauth_token(cid, client_secret, redirect_url):
+def get_oauth_token(cid, client_secret, redirect_url, browser_path):
 
     oauth = OAuth2Session(client_id = cid, redirect_uri = redirect_url)
     authorization_url, state = oauth.authorization_url(
         'https://zoom.us/oauth/authorize')
 
     print ('Going to %s to authorize access.' % authorization_url)
-    chrome_path= r'/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe' 
+    #chrome_path= r'/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe' 
     authorization_url = authorization_url.replace('&', '\&')
     print(authorization_url)
-    os.system(chrome_path + " " + authorization_url)
+    os.system(browser_path + " " + authorization_url)
 
     http_receiver()
 
