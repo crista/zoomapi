@@ -48,9 +48,7 @@ class ZoomClient(util.ApiClient):
         return
 
     def refresh_token(self):
-        self.config["token"] = (
-            util.generate_jwt(self.config["api_key"], self.config["api_secret"]),
-        )
+        pass
 
     @property
     def api_key(self):

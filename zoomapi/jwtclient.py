@@ -67,12 +67,6 @@ class JWTZoomClient(ZoomClient):
                 base_uri=BASE_URI, config=self.config
             )
 
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        return
-
     def refresh_token(self):
         self.config["token"] = (
             util.generate_jwt(self.config["api_key"], self.config["api_secret"]),

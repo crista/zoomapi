@@ -32,4 +32,10 @@ for c in channels:
     print(c)
     if "test" in c.values():
         print("Found channel test", c["id"])
-        print(client.chat_messages.post(to_channel=c["id"], message="Blah!"))
+        cid = to_channel=c["id"]
+stop = False
+while not stop:
+    message = input("Enter message: ")
+    print(client.chat_messages.post(to_channel=cid, message=message))
+    if message == "stop":
+        stop = True 

@@ -21,7 +21,10 @@ class OAuthZoomClient(ZoomClient):
         super(OAuthZoomClient, self).__init__(api_key=client_id, api_secret=client_secret, timeout=timeout)
 
         # Add the specific config details
+        self.config["client_id"] = client_id
+        self.config["client_secret"] = client_secret
         self.config["redirect_url"] = redirect_url
+        self.config["browser_path"] = browser_path
         self.config["token"] = util.get_oauth_token(client_id, client_secret, redirect_url, browser_path)
 
         self.components["chat_channels"] = components.chat_channels.ChatChannelsComponentV2
@@ -32,6 +35,9 @@ class OAuthZoomClient(ZoomClient):
             self.components[key] = self.components[key](
                 base_uri=self.BASE_URI, config=self.config
             )
+
+    def refresh_token(self):
+        self.config["token"] = util.get_oauth_token(self.config["client_id"], self.config["client_secret"], self.config["redirect_url"], self.config["browser_path"])
 
 
     @property
