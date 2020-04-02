@@ -4,6 +4,8 @@
 client_id = YOUR_CLIENT_ID
 client_secret = YOUR_CLIENT_SECRET
 ; Path to your browser executable, e.g.
+; '"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"'
+; ^^ Yes, all of these " and ' and \ are necessary in Windows!
 browser_path = '/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe'
 
 [JWT]
