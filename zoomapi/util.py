@@ -128,6 +128,7 @@ class ApiClient(object):
             data = json.dumps(data)
         if headers is None:
             headers = {"Authorization": "Bearer {}".format(self.config.get("token"))}
+        headers["Content-type"] = "application/json"
         return requests.patch(
             self.url_for(endpoint),
             params=params,
@@ -154,6 +155,7 @@ class ApiClient(object):
             data = json.dumps(data)
         if headers is None:
             headers = {"Authorization": "Bearer {}".format(self.config.get("token"))}
+        headers["Content-type"] = "application/json"
         return requests.delete(
             self.url_for(endpoint),
             params=params,
@@ -178,6 +180,7 @@ class ApiClient(object):
             data = json.dumps(data)
         if headers is None:
             headers = {"Authorization": "Bearer {}".format(self.config.get("token"))}
+        headers["Content-type"] = "application/json"
         return requests.put(
             self.url_for(endpoint),
             params=params,
