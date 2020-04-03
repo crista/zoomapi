@@ -7,6 +7,30 @@ import json
 from configparser import ConfigParser
 from pyngrok import ngrok
 
+def create_channel(client):
+    channel_name = input("Enter channel name: ")
+    number_members = 0
+    members = []
+    while number_members < 5:
+        member = input("Type stop to stop adding members. Enter member email: ")
+        if member == "stop":
+            break
+
+        members.append({'email' : member})
+    
+    client.chat_channels.create(name=channel_name, type=1, members=members)
+    print("Channel created!")
+
+def list_channels(client):
+    channels = json.loads(client.chat_channels.list().content)["channels"]
+    print(channels)
+
+def get_channel(client):
+    channel_id = input("Enter channel id: ")
+    response = client.chat_channels.get(channel_id = channel_id)
+    channel = json.loads(client.chat_channels.get(channel_id = channel_id).content)
+    print(channel)
+
 parser = ConfigParser()
 parser.read("bots/bot.ini")
 client_id = parser.get("OAuth", "client_id")
@@ -25,26 +49,23 @@ user = json.loads(user_response.content)
 print(user)
 print ('---')
 
+
 stop = False
 while not stop:
-      command = input("Enter action: ")
-      if command == "stop":
+    command = input("Enter action: ")
+    if command == "stop":
         stop = True 
+    elif command == "create channel":
+        create_channel(client)
+    elif command == "list channels":
+        list_channels(client)
+    elif command == "get channel":
+        get_channel(client)
+    else:
+        print("Invalid command.")
 
-      if command == "create channel":
-        channel_name = input("Enter channel name: ")
 
-        number_members = 0
-        members = []
-        while number_members < 5:
-            member = input("Type stop to stop adding members. Enter member email: ")
-            if member == "stop":
-                break
 
-            members.append({'email' : member})
-        
-        client.chat_channels.post(name=channel_name, type=1, members=members)
-        print("Channel created!")
         
 
           
