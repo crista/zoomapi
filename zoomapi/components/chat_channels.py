@@ -9,3 +9,7 @@ class ChatChannelsComponentV2(base.BaseComponent):
     def list(self, **kwargs):
         return self.get_request("/chat/users/me/channels")
 
+    def post(self, **kwargs):
+        util.require_keys(kwargs, "name")
+        return self.post_request("/chat/users/me/channels", data=kwargs)
+
