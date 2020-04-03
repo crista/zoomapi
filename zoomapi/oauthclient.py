@@ -9,7 +9,7 @@ class OAuthZoomClient(ZoomClient):
     """Base URL for Zoom API"""
 
     def __init__(
-        self, client_id, client_secret, redirect_url, browser_path, data_type="json", timeout=15
+        self, client_id, client_secret, port, redirect_url, browser_path, data_type="json", timeout=15
     ):
         """Create a new Zoom client
 
@@ -23,9 +23,10 @@ class OAuthZoomClient(ZoomClient):
         # Add the specific config details
         self.config["client_id"] = client_id
         self.config["client_secret"] = client_secret
+        self.config["port"] = port
         self.config["redirect_url"] = redirect_url
         self.config["browser_path"] = browser_path
-        self.config["token"] = util.get_oauth_token(client_id, client_secret, redirect_url, browser_path)
+        self.config["token"] = util.get_oauth_token(client_id, client_secret, port, redirect_url, browser_path)
 
         self.components["chat_channels"] = components.chat_channels.ChatChannelsComponentV2
         self.components["chat_messages"] = components.chat_messages.ChatMessagesComponentV2
@@ -37,7 +38,7 @@ class OAuthZoomClient(ZoomClient):
             )
 
     def refresh_token(self):
-        self.config["token"] = util.get_oauth_token(self.config["client_id"], self.config["client_secret"], self.config["redirect_url"], self.config["browser_path"])
+        self.config["token"] = util.get_oauth_token(self.config["client_id"], self.config["client_secret"], self.config["port"], self.config["redirect_url"], self.config["browser_path"])
 
 
     @property

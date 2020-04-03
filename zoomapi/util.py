@@ -272,14 +272,14 @@ class TokenHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.end_headers()
 
-def http_receiver():
-    with socketserver.TCPServer(("", 4000), TokenHandler) as httpd:
-        print("serving at port", 4000)
+def http_receiver(port):
+    with socketserver.TCPServer(("", port), TokenHandler) as httpd:
+        print("serving at port", port)
         while TokenHandler.code == None:
             httpd.handle_request()
         print("End of http receiver")
 
-def get_oauth_token(cid, client_secret, redirect_url, browser_path):
+def get_oauth_token(cid, client_secret, port, redirect_url, browser_path):
 
     oauth = OAuth2Session(client_id = cid, redirect_uri = redirect_url)
     authorization_url, state = oauth.authorization_url(
@@ -293,7 +293,7 @@ def get_oauth_token(cid, client_secret, redirect_url, browser_path):
     print(authorization_url)
     os.system(browser_path + " " + authorization_url)
 
-    http_receiver()
+    http_receiver(port)
 
     token = oauth.fetch_token(
         'https://zoom.us/oauth/token',
