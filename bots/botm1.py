@@ -27,9 +27,16 @@ def list_channels(client):
 
 def get_channel(client):
     channel_id = input("Enter channel id: ")
-    response = client.chat_channels.get(channel_id = channel_id)
     channel = json.loads(client.chat_channels.get(channel_id = channel_id).content)
     print(channel)
+
+def delete_channel(client):
+    channel_id = input("Enter channel id: ")
+    if ((client.chat_channels.delete(channel_id = channel_id)).status_code == 204):
+        print("Channel deleted")
+    else:
+        print("Error deleting channel")
+
 
 parser = ConfigParser()
 parser.read("bots/bot.ini")
@@ -61,6 +68,8 @@ while not stop:
         list_channels(client)
     elif command == "get channel":
         get_channel(client)
+    elif command == "delete channel":
+        delete_channel(client)
     else:
         print("Invalid command.")
 
