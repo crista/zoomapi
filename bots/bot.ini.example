@@ -3,9 +3,11 @@
 [OAuth]
 client_id = YOUR_CLIENT_ID
 client_secret = YOUR_CLIENT_SECRET
-; Path to your browser executable, e.g.
-; '"C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"'
-; ^^ Yes, all of these " and ' and \ are necessary in Windows!
+port = 4001
+; Path to your browser executable
+; Use this for Windows:
+; browser_path = "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+; Use this for WSL or equivalent in Mac
 browser_path = '/mnt/c/Program Files (x86)/Google/Chrome/Application/chrome.exe'
 
 [JWT]
