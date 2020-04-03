@@ -286,8 +286,10 @@ def get_oauth_token(cid, client_secret, redirect_url, browser_path):
         'https://zoom.us/oauth/authorize')
 
     print ('Going to %s to authorize access.' % authorization_url)
-    #chrome_path= r'/mnt/c/Program\ Files\ \(x86\)/Google/Chrome/Application/chrome.exe' 
-    authorization_url = authorization_url.replace('&', '\&')
+    if os.name == 'nt':
+        authorization_url = authorization_url.replace('&', '^&')
+    else:
+        authorization_url = authorization_url.replace('&', '\&')
     print(authorization_url)
     os.system(browser_path + " " + authorization_url)
 
