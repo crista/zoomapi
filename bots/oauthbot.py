@@ -13,7 +13,7 @@ client_id = parser.get("OAuth", "client_id")
 client_secret = parser.get("OAuth", "client_secret")
 port = parser.getint("OAuth", "port", fallback=4001)
 browser_path = parser.get("OAuth", "browser_path")
-print(f'id: {client_id} secret: {client_secret} browser: {browser_path}')
+print(f'id: {client_id} browser: {browser_path}')
 
 redirect_url = ngrok.connect(port, "http")
 print("Redirect URL is", redirect_url)
