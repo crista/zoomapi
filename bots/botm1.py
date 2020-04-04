@@ -75,6 +75,14 @@ def invite_channel_members(client):
         print("Invitations sent!")
     else:
         print("Invalid action. Check if channel exists or if users are already members of the channel.")
+    
+def remove_channel_member(client):
+    channel_id = input("Enter channel id: ")
+    member_id = input("Enter member id: ")
+    if (client.chat_channels.remove_member(channel_id = channel_id, member_id = member_id).status_code == 204):
+        print("Member removed!")
+    else:
+        print("Error removing member")
 
 def list_messages(client, user_id):
     response = input("Retrieve messages by email or channel? ")
@@ -92,7 +100,6 @@ def send_message(client):
     email = input("Please enter email of the contact you'd like to send a message: ")
     message = input("Enter message: ")
     print(client.chat_messages.post(to_contact = email, message=message)) 
-
 
 user_id = "me"
 parser = ConfigParser()
@@ -113,7 +120,6 @@ user = json.loads(user_response.content)
 print(user)
 print ('---')
 
-
 stop = False
 while not stop:
     command = input("Enter action: ")
@@ -133,15 +139,11 @@ while not stop:
         update_channel(client)
     elif command == "invite channel members":
         invite_channel_members(client)
+    elif command == "remove channel member":
+        remove_channel_member(client)
     elif command == "list messages":
         list_messages(client, user_id)
     elif command == "send message":
         send_message(client)
     else:
-        print("Invalid command.")
-
-
-
-        
-
-          
+        print("Invalid command.")      
