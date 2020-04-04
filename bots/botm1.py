@@ -9,6 +9,13 @@ from pyngrok import ngrok
 
 def create_channel(client):
     channel_name = input("Enter channel name: ")
+    print("Available channel types: 1 - private, 2 - private with members that belong with the same Zoom account, 3 - public")
+    channel_type = int(input("Enter channel type: "))
+
+    if (channel_type < 1 and channel_type > 3):
+        print("Invalid channel type. Returning to menu.")
+        return
+
     number_members = 0
     members = []
     while number_members < 5:
@@ -18,7 +25,7 @@ def create_channel(client):
 
         members.append({'email' : member})
     
-    if (client.chat_channels.create(name=channel_name, type=1, members=members).status_code == 201):
+    if (client.chat_channels.create(name=channel_name, type=channel_type, members=members).status_code == 201):
         print("Channel created!")
 
 def list_channels(client):
