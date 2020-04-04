@@ -22,3 +22,6 @@ class ChatChannelsComponentV2(base.BaseComponent):
         return self.delete_request("/chat/channels/{}".format(kwargs.get("channel_id")))
     
 
+    def update(self, **kwargs):
+        util.require_keys(kwargs, "channel_id")
+        return self.patch_request("/chat/channels/{}".format(kwargs.get("channel_id")), data=kwargs)

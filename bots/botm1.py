@@ -18,8 +18,8 @@ def create_channel(client):
 
         members.append({'email' : member})
     
-    client.chat_channels.create(name=channel_name, type=1, members=members)
-    print("Channel created!")
+    if (client.chat_channels.create(name=channel_name, type=1, members=members).status_code == 201):
+        print("Channel created!")
 
 def list_channels(client):
     channels = json.loads(client.chat_channels.list().content)["channels"]
@@ -37,6 +37,13 @@ def delete_channel(client):
     else:
         print("Error deleting channel")
 
+def update_channel(client):
+    channel_id = input("Enter channel id: ")
+    channel_name = input("Enter channel name: ")
+    if (client.chat_channels.update(channel_id = channel_id, name = channel_name).status_code == 204):
+        print("Channel updated!")
+    else:
+        print("Error updating channel")
 
 parser = ConfigParser()
 parser.read("bots/bot.ini")
@@ -70,6 +77,8 @@ while not stop:
         get_channel(client)
     elif command == "delete channel":
         delete_channel(client)
+    elif command == "update channel":
+        update_channel(client)
     else:
         print("Invalid command.")
 
