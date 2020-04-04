@@ -91,7 +91,7 @@ def list_messages(client, user_id):
 def send_message(client):
     email = input("Please enter email of the contact you'd like to send a message: ")
     message = input("Enter message: ")
-    print(client.chat_messages.post(to_contact = email, message=message))
+    print(client.chat_messages.post(to_contact = email, message=message)) 
 
 
 user_id = "me"
