@@ -8,7 +8,7 @@ class ChatMessagesComponentV2(base.BaseComponent):
     """Component dealing with all chat messages related matters"""
 
     def list(self, **kwargs):
-        util.require_keys(kwargs, "id")
+        util.require_keys(kwargs, "user_id")
         return self.get_request(
                 "/chat/users/{}/messages".format(kwargs.get("user_id")), params=kwargs
         )

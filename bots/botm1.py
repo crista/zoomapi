@@ -60,6 +60,19 @@ def update_channel(client):
     else:
         print("Error updating channel")
 
+def list_messages(client, user_id):
+    response = input("Retrieve messages by email or channel? ")
+    if response == "email":
+        email = input("Please enter email: ")
+        messages = json.loads(client.chat_messages.list(user_id = user_id, to_contact = email).content)["messages"]
+    elif response == "channel":
+        channel = input("Please enter channel id: ")
+        messages = json.loads(client.chat_messages.list(user_id = user_id, to_channel = channel).content)["messages"]
+    else:
+        print("Invalid entry")
+    print(messages)
+
+user_id = "me"
 parser = ConfigParser()
 parser.read("bots/bot.ini")
 client_id = parser.get("OAuth", "client_id")
@@ -96,6 +109,8 @@ while not stop:
         delete_channel(client)
     elif command == "update channel":
         update_channel(client)
+    elif command == "list messages":
+        list_messages(client, user_id)
     else:
         print("Invalid command.")
 
