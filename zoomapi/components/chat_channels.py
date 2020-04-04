@@ -17,3 +17,6 @@ class ChatChannelsComponentV2(base.BaseComponent):
         util.require_keys(kwargs, "channel_id")
         return self.get_request("/chat/channels/{}".format(kwargs.get("channel_id")))
 
+    def list_members(self, **kwargs):
+        util.require_keys(kwargs, "channel_id")
+        return self.get_request("/chat/channels/{}/members".format(kwargs.get("channel_id")))
