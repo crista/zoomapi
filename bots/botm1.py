@@ -88,6 +88,12 @@ def list_messages(client, user_id):
         print("Invalid entry")
     print(messages)
 
+def send_message(client):
+    email = input("Please enter email of the contact you'd like to send a message: ")
+    message = input("Enter message: ")
+    print(client.chat_messages.post(to_contact = email, message=message))
+
+
 user_id = "me"
 parser = ConfigParser()
 parser.read("bots/bot.ini")
@@ -129,6 +135,8 @@ while not stop:
         invite_channel_members(client)
     elif command == "list messages":
         list_messages(client, user_id)
+    elif command == "send message":
+        send_message(client)
     else:
         print("Invalid command.")
 
