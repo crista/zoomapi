@@ -30,6 +30,14 @@ def get_channel(client):
     channel = json.loads(client.chat_channels.get(channel_id = channel_id).content)
     print(channel)
 
+def list_channel_members(client):
+    channel_id = input("Enter channel id: ")
+    response = client.chat_channels.list_members(channel_id = channel_id)
+    if (response.status_code == 200):
+        print(json.loads(response.content)["members"])
+    else:
+        print("Incorrect channel id")
+        
 def delete_channel(client):
     channel_id = input("Enter channel id: ")
     if ((client.chat_channels.delete(channel_id = channel_id)).status_code == 204):
@@ -75,6 +83,8 @@ while not stop:
         list_channels(client)
     elif command == "get channel":
         get_channel(client)
+    elif command == "list channel members":
+        list_channel_members(client)
     elif command == "delete channel":
         delete_channel(client)
     elif command == "update channel":
