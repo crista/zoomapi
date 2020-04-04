@@ -60,6 +60,22 @@ def update_channel(client):
     else:
         print("Error updating channel")
 
+def invite_channel_members(client):
+    channel_id = input("Enter channel id: ")
+    number_members = 0
+    members = []
+    while number_members < 5:
+        member = input("Type stop to stop adding members. Enter member email: ")
+        if member == "stop":
+            break
+
+        members.append({'email' : member})
+    
+    if (client.chat_channels.invite_members(channel_id = channel_id, members=members).status_code == 200):
+        print("Invitations sent!")
+    else:
+        print("Invalid action. Check if channel exists or if users are already members of the channel.")
+
 def list_messages(client, user_id):
     response = input("Retrieve messages by email or channel? ")
     if response == "email":
@@ -109,6 +125,8 @@ while not stop:
         delete_channel(client)
     elif command == "update channel":
         update_channel(client)
+    elif command == "invite channel members":
+        invite_channel_members(client)
     elif command == "list messages":
         list_messages(client, user_id)
     else:
