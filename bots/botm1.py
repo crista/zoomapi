@@ -9,6 +9,13 @@ from pyngrok import ngrok
 
 def create_channel(client):
     channel_name = input("Enter channel name: ")
+    print("Available channel types: 1 - private, 2 - private with members that belong with the same Zoom account, 3 - public")
+    channel_type = int(input("Enter channel type: "))
+
+    if (channel_type < 1 and channel_type > 3):
+        print("Invalid channel type. Returning to menu.")
+        return
+
     number_members = 0
     members = []
     while number_members < 5:
@@ -18,7 +25,7 @@ def create_channel(client):
 
         members.append({'email' : member})
     
-    if (client.chat_channels.create(name=channel_name, type=1, members=members).status_code == 201):
+    if (client.chat_channels.create(name=channel_name, type=channel_type, members=members).status_code == 201):
         print("Channel created!")
 
 def list_channels(client):
@@ -69,6 +76,19 @@ def invite_channel_members(client):
     else:
         print("Invalid action. Check if channel exists or if users are already members of the channel.")
 
+def list_messages(client, user_id):
+    response = input("Retrieve messages by email or channel? ")
+    if response == "email":
+        email = input("Please enter email: ")
+        messages = json.loads(client.chat_messages.list(user_id = user_id, to_contact = email).content)["messages"]
+    elif response == "channel":
+        channel = input("Please enter channel id: ")
+        messages = json.loads(client.chat_messages.list(user_id = user_id, to_channel = channel).content)["messages"]
+    else:
+        print("Invalid entry")
+    print(messages)
+
+user_id = "me"
 parser = ConfigParser()
 parser.read("bots/bot.ini")
 client_id = parser.get("OAuth", "client_id")
@@ -107,6 +127,8 @@ while not stop:
         update_channel(client)
     elif command == "invite channel members":
         invite_channel_members(client)
+    elif command == "list messages":
+        list_messages(client, user_id)
     else:
         print("Invalid command.")
 
