@@ -29,6 +29,7 @@ class RecordingComponent(base.BaseComponent):
 class RecordingComponentV2(base.BaseComponent):
     """Component dealing with all recording related matters"""
 
+    @util.Throttled
     def list(self, **kwargs):
         util.require_keys(kwargs, "user_id")
         start = kwargs.pop("start", None)
@@ -41,12 +42,14 @@ class RecordingComponentV2(base.BaseComponent):
             "/users/{}/recordings".format(kwargs.get("user_id")), params=kwargs
         )
 
+    @util.Throttled
     def get(self, **kwargs):
         util.require_keys(kwargs, "meeting_id")
         return self.get_request(
             "/meetings/{}/recordings".format(kwargs.get("meeting_id")), params=kwargs
         )
 
+    @util.Throttled
     def delete(self, **kwargs):
         util.require_keys(kwargs, "meeting_id")
         return self.delete_request(

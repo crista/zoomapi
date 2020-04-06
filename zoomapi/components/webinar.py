@@ -54,40 +54,47 @@ class WebinarComponent(base.BaseComponent):
 class WebinarComponentV2(base.BaseComponent):
     """Component dealing with all webinar related matters"""
 
+    @util.Throttled
     def list(self, **kwargs):
         util.require_keys(kwargs, "user_id")
         return self.get_request(
             "/users/{}/webinars".format(kwargs.get("user_id")), params=kwargs
         )
 
+    @util.Throttled
     def create(self, **kwargs):
         util.require_keys(kwargs, "user_id")
         return self.post_request(
             "/users/{}/webinars".format(kwargs.get("user_id")), params=kwargs
         )
 
+    @util.Throttled
     def update(self, **kwargs):
         util.require_keys(kwargs, "id")
         return self.patch_request(
             "/webinars/{}".format(kwargs.get("id")), params=kwargs
         )
 
+    @util.Throttled
     def delete(self, **kwargs):
         util.require_keys(kwargs, "id")
         return self.delete_request(
             "/webinars/{}".format(kwargs.get("id")), params=kwargs
         )
 
+    @util.Throttled
     def end(self, **kwargs):
         util.require_keys(kwargs, "id")
         return self.put_request(
             "/webinars/{}/status".format(kwargs.get("id")), params={"status": "end"}
         )
 
+    @util.Throttled
     def get(self, **kwargs):
         util.require_keys(kwargs, "id")
         return self.get_request("/webinars/{}".format(kwargs.get("id")), params=kwargs)
 
+    @util.Throttled
     def register(self, **kwargs):
         util.require_keys(kwargs, ["id", "email", "first_name", "last_name"])
         return self.post_request(

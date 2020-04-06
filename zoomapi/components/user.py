@@ -39,20 +39,25 @@ class UserComponent(base.BaseComponent):
 
 
 class UserComponentV2(base.BaseComponent):
+    @util.Throttled
     def list(self, **kwargs):
         return self.get_request("/users", params=kwargs)
 
+    @util.Throttled
     def create(self, **kwargs):
         return self.post_request("/users", params=kwargs)
 
+    @util.Throttled
     def update(self, **kwargs):
         util.require_keys(kwargs, "id")
         return self.patch_request("/users/{}".format(kwargs.get("id")), params=kwargs)
 
+    @util.Throttled
     def delete(self, **kwargs):
         util.require_keys(kwargs, "id")
         return self.delete_request("/users/{}".format(kwargs.get("id")), params=kwargs)
 
+    @util.Throttled
     def get(self, **kwargs):
         util.require_keys(kwargs, "id")
         return self.get_request("/users/{}".format(kwargs.get("id")), params=kwargs)

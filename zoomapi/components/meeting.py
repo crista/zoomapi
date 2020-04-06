@@ -40,12 +40,14 @@ class MeetingComponent(base.BaseComponent):
 
 
 class MeetingComponentV2(base.BaseComponent):
+    @util.Throttled
     def list(self, **kwargs):
         util.require_keys(kwargs, "user_id")
         return self.get_request(
             "/users/{}/meetings".format(kwargs.get("user_id")), params=kwargs
         )
 
+    @util.Throttled
     def create(self, **kwargs):
         util.require_keys(kwargs, "user_id")
         if kwargs.get("start_time"):
@@ -54,10 +56,12 @@ class MeetingComponentV2(base.BaseComponent):
             "/users/{}/meetings".format(kwargs.get("user_id")), params=kwargs
         )
 
+    @util.Throttled
     def get(self, **kwargs):
         util.require_keys(kwargs, "id")
         return self.get_request("/meetings/{}".format(kwargs.get("id")), params=kwargs)
 
+    @util.Throttled
     def update(self, **kwargs):
         util.require_keys(kwargs, "id")
         if kwargs.get("start_time"):
@@ -66,6 +70,7 @@ class MeetingComponentV2(base.BaseComponent):
             "/meetings/{}".format(kwargs.get("id")), params=kwargs
         )
 
+    @util.Throttled
     def delete(self, **kwargs):
         util.require_keys(kwargs, "id")
         return self.delete_request(

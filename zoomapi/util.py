@@ -12,8 +12,8 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 import socketserver
 from threading import Thread
 from urllib.parse import urlparse, urlencode, quote
-import webbrowser
 import os
+import functools, time
 
 class ApiClient(object):
     """Simple wrapper for REST API requests"""
@@ -301,3 +301,23 @@ def get_oauth_token(cid, client_secret, port, redirect_url, browser_path):
         client_secret=client_secret)
     resp = dict(token)
     return resp["access_token"]
+
+class Throttled:
+    INTERVAL = 0.150 # A bit slower than the documented rate
+    time = 0
+    def __init__(self, func):
+        functools.update_wrapper(self, func)
+        self.func = func
+
+    def __get__(self, obj, objtype):
+        return functools.partial(self.__call__, obj)
+
+    def __call__(self, obj, *args, **kwargs):
+        now = time.perf_counter()
+        delta = now - Throttled.time
+        if delta < Throttled.INTERVAL:
+            print(f'...Slowing down by {delta}...')
+            time.sleep(delta)
+        result = self.func(obj, *args, **kwargs)
+        Throttled.time = time.perf_counter()
+        return result
