@@ -316,8 +316,8 @@ class Throttled:
         now = time.perf_counter()
         delta = now - Throttled.time
         if delta < Throttled.INTERVAL:
-            print(f'...Slowing down by {delta}...')
-            time.sleep(delta)
+            print(f'...Slowing down by {Throttled.INTERVAL - delta}...')
+            time.sleep(Throttled.INTERVAL - delta)
         result = self.func(obj, *args, **kwargs)
         Throttled.time = time.perf_counter()
         return result
